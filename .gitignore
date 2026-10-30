@@ -1,0 +1,17 @@
+# Ignore Python virtual environments
+venv/
+.pyvenv/
+
+# Ignore temporary files
+*.py[co]
+*.pycache/
+*.tmp
+*.bak
+*.swp
+
+# Ignore log files
+*.log
+
+# Ignore data files
+*.json
+*.csv
