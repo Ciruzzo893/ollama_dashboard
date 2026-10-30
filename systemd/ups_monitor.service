@@ -1,1 +1,10 @@
+[Unit]
+Description=UPS Monitor Service
+After=network.target
 
+[Service]
+User=your_username
+ExecStart=/usr/bin/python3 ups_monitor.py
+
+[Install]
+WantedBy=multi-user.target
