@@ -1,1 +1,10 @@
+[Unit]
+Description=Restart Dashboard Service
+After=dashboard.service
 
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl restart dashboard.service
+
+[Install]
+WantedBy=multi-user.target
