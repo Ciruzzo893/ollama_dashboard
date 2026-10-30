@@ -1,14 +1,10 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from contextlib import asynccontextmanager
 import ollama
 import psutil
 import os
-import shutil
-import requests
-import subprocess
-from datetime import datetime
 
 app = FastAPI()
 
@@ -20,21 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configurazione CORS per gli header
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_headers=["*"],
-)
-
 # Endpoint per la chat
 @app.get("/")
 async def read_root():
     return {"message": "Hello, World!"}
-
-@app.get("/hello")
-async def say_hello():
-    return {"message": "Hello World"}
 
 @app.get("/ollama")
 async def ollama():
