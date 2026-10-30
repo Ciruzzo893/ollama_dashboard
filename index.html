@@ -3,15 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ollama Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Ollame AI Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #chat-container {
+            margin-top: 20px;
+        }
+        #chat-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        #message-form {
+            display: flex;
+            margin-top: 20px;
+        }
+        #message-input {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>AI Dashboard</h1>
-    <div id="chat">
-        <h2>Chat</h2>
-        <!-- Chat interface -->
+    <div id="app">
+        <h1>Ollama AI Dashboard</h1>
+        <div id="chat-container">
+            <div id="chat-box">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <form id="message-form">
+                <input type="text" id="message-input" placeholder="Scrivi un messaggio...">
+                <button type="submit">Invia</button>
+            </form>
+        </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementi DOM
+            const chatBox = document.getElementById('chat-box');
+            const messageForm = document.getElementById('message-form');
+            const messageInput = document.getElementById('message-input');
+            
+            // Funzione per inviare un messaggio
+            async function sendMessage(message) {
+                // Mostra il messaggio dell'utente
+                chatBox.innerHTML += `<div class="user-message">${message}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+                
+                // Invia la richiesta al backend
+                try {
+                    const response = await fetch('http://localhost:8000/ollama', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        chatBox.innerHTML += `<div class="ai-message">${data.message}</div>`;
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    } else {
+                        throw new Error('Errore nella richiesta');
+                    }
+                } catch (error) {
+                    chatBox.innerHTML += `<div class="error-message">${error.message}</div>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            }
+            
+            // Gestione del form
+            messageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const message = messageInput.value.trim();
+                if (message) {
+                    sendMessage(message);
+                    messageInput.value = '';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
