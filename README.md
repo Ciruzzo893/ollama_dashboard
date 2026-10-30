@@ -17,3 +17,10 @@ Questo è un dashboard per interagire con l'AI Ollama.
 ## Avvio
 
 Avvia i servizi con:
+
+
+## Note
+
+- Assicurati di sostituire `your_username` con il tuo utente Linux
+- La porta 8000 può essere modificata in base alle tue esigenze
+- I modelli disponibili possono variare in base all'installazione di Ollama
