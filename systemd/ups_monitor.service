@@ -3,7 +3,7 @@ Description=UPS Monitor Service
 After=network.target
 
 [Service]
-User=Ciruzzo893
+User=gabry
 ExecStart=/usr/bin/python3 ups_monitor.py
 
 [Install]
