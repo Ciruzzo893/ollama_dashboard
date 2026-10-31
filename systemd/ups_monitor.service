@@ -5,6 +5,7 @@ After=network.target
 [Service]
 User=gabry
 ExecStart=/usr/bin/python3 ups_monitor.py
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
